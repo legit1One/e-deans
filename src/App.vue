@@ -1,32 +1,35 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div>
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+            data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+      <Header v-if="$route.name!=='login'"></Header>
+      <Sidebar v-if="$route.name!=='login'"></Sidebar>
+      <router-view></router-view>
+      <Loader v-if="loading"></Loader>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+  import Header from "./components/Header";
+  import Sidebar from "./components/Sidebar";
+  import Loader from "./components/Loader";
+  import {mapState} from 'vuex'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  export default {
+    components: {
+      Loader,
+      Header,
+      Sidebar
+    },
+    computed: {
+      ...mapState(['loading'])
     }
   }
-}
+</script>
+
+<style lang="scss">
+  @import "styles/style";
+  @import './assets/icons/font-awesome/css/fontawesome-all.min.css';
+  @import './assets/icons/themify-icons/themify-icons.css';
 </style>

@@ -1,29 +1,70 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import UserList from "../components/UserList";
+import CreateUser from "../components/CreateUser";
+import Login from "../components/Login"
+import Applications from "../components/Applications";
+import CreateApplication from "../components/CreateApplication";
+import SignDocs from "../components/SignDocs";
+import CreateSignDoc from "../components/CreateSignDoc";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/user-list',
+    name: 'userList',
+    component: UserList
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/create-user',
+    name: 'createUser',
+    component: CreateUser
+  },
+  {
+    path: '/update-user/:id',
+    name: 'updateUser',
+    component: CreateUser,
+    meta: {
+      isEdit: true
+    }
+  },
+  {
+    path: '/applications',
+    name: 'applications',
+    component: Applications,
+  },
+  {
+    path: '/create-application',
+    name: 'createApplication',
+    component: CreateApplication,
+  },
+  {
+    path: '/sign-docs',
+    name: 'signDocs',
+    component: SignDocs,
+  },
+  {
+    path: '/create-sign-doc',
+    name: 'createSignDoc',
+    component: CreateSignDoc,
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login' && !localStorage.getItem('access_token')) next({ name: 'login' })
+  else next()
 })
 
 export default router
