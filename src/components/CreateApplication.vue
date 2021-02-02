@@ -11,7 +11,7 @@
                   <div class="col-sm-12 border-bottom p-0">
                     <select class="form-control p-0 border-0" v-model="applicationTypeId">
                       <option v-for="(applicationType, idx) in applicationTypes" :key="applicationType.id"
-                              :value="applicationType.id">{{applicationType.name}}
+                              :value="applicationType.id">{{applicationType.description}}
                       </option>
                     </select>
                   </div>

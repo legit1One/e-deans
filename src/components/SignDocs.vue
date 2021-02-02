@@ -91,7 +91,7 @@
     methods: {
       ...mapActions(['getSignDocs', 'getApplicationTypes', 'signApplication', 'getUserCampusInfo']),
       getApplicationName(application) {
-        return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).name) || ''
+        return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).description) || ''
       },
       signDocument(doc, signed) {
         const data = {

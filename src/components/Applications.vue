@@ -53,7 +53,7 @@
     methods: {
       ...mapActions(['getApplications', 'getApplicationTypes']),
       getApplicationName(application) {
-        return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).name) || ''
+        return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).description) || ''
       }
     }
   }
