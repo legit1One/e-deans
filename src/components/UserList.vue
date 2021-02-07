@@ -21,7 +21,7 @@
                 <tr>
                   <th class="border-top-0">#</th>
                   <th class="border-top-0">ФИО</th>
-                  <th class="border-top-0">Emal</th>
+                  <th class="border-top-0">Логин</th>
                   <th class="border-top-0">Роль</th>
                 </tr>
                 </thead>
@@ -29,7 +29,7 @@
                 <tr v-for="(user, idx) in users " :key="idx">
                   <td>{{++idx}}</td>
                   <td>{{user.name}}</td>
-                  <td>{{user.email}}</td>
+                  <td>{{user.username}}</td>
                   <td>{{getRoleName(user)}}</td>
                   <td>
                     <i @click="deleteUserAlert(user)" class="fas fa-trash-alt text-danger cursor-pointer"></i>

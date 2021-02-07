@@ -15,7 +15,7 @@
               <div>
                 <div class="form-group first">
                   <label for="username">Логин</label>
-                  <input v-model="user.email" type="text" class="form-control" id="username">
+                  <input v-model="user.username" type="text" class="form-control" id="username">
 
                 </div>
                 <div class="form-group last mb-4">
@@ -40,7 +40,7 @@
   export default {
     data: () => ({
       user: {
-        email: '',
+        username: '',
         password: ''
       }
     }),

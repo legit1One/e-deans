@@ -16,7 +16,7 @@
                   <label for="example-email" class="col-md-12 p-0">Email</label>
                   <div class="col-md-12 border-bottom p-0">
                     <input type="email" placeholder="johnathan@admin.com"
-                            v-model="user.email"
+                            v-model="user.username"
                             class="form-control p-0 border-0" name="example-email"
                             id="example-email">
                   </div>
