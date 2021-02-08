@@ -28,7 +28,7 @@
                 <tr v-for="(application, idx) in applications " :key="idx">
                   <td>{{++idx}}</td>
                   <td>{{getApplicationName(application)}}</td>
-                  <td>{{application.uri}}</td>
+                  <td><a :href="application.uri">{{application.uri}}</a>  </td>
                 </tr>
                 </tbody>
               </table>
