@@ -24,7 +24,7 @@
                   <th class="border-top-0">Ссылка</th>
                 </tr>
                 </thead>
-                <tbody>00
+                <tbody>
                 <tr v-for="(application, idx) in applications " :key="idx">
                   <td>{{++idx}}</td>
                   <td>{{getApplicationName(application)}}</td>

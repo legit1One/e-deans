@@ -83,13 +83,14 @@ export default new Vuex.Store({
     },
     logout(context, data) {
       context.commit('setLoading', true)
+      localStorage.removeItem('access_token')
       return axios.post(`api/v1/logout`, data)
         .then(async response => {
-          context.commit('saveToken', '')
           return response
         })
         .finally(() => {
           context.commit('setLoading', false)
+          window.location.reload()
         })
     },
     getUser(context, id) {
@@ -143,9 +144,13 @@ export default new Vuex.Store({
         })
     },
     updateUser(context, user) {
+      context.commit('setLoading', true)
       return axios.put(`api/v1/users/${user.id}`, user)
         .then(({data}) => {
           context.commit('updateUser', data)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
         })
     },
     deleteUser(context, id) {
@@ -167,27 +172,43 @@ export default new Vuex.Store({
         })
     },
     signApplication(context, data) {
+      context.commit('setLoading', true)
       return axios.post(`api/v1/sign-docs/sign`, data)
         .then(({data}) => {
           context.commit('updateUser', data)
         })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
     },
     getApplications(context) {
+      context.commit('setLoading', true)
       return axios.get(`api/v1/applications`)
         .then(({data}) => {
           context.commit('updateApplications', data)
         })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
     },
     getApplicationTypes(context) {
+      context.commit('setLoading', true)
       return axios.get(`api/v1/application-types`)
         .then(({data}) => {
           context.commit('updateApplicationTypes', data)
         })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
     },
     getSignDocs(context) {
+      context.commit('setLoading', true)
       return axios.get(`api/v1/sign-docs`)
         .then(({data}) => {
           context.commit('updateSignDocs', data)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
         })
     },
     getUserCampusInfo(context, id) {
@@ -195,7 +216,6 @@ export default new Vuex.Store({
       return axios.get(`api/v1/user/campus-info/${id}`)
         .then(({data}) => {
           context.commit('updateUserInfo', data)
-          console.log(data)
         })
         .finally(() => {
           context.commit('setLoading', false)
