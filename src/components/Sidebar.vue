@@ -25,7 +25,7 @@
             </router-link>
           </li>
 
-          <li class="text-center p-20 upgrade-btn">
+          <li class="text-center p-20 upgrade-btn p-2">
             <div class="btn btn-block btn-danger text-white" @click="logoutSession">Выйти
             </div>
           </li>
