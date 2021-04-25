@@ -11,10 +11,13 @@ export default new Vuex.Store({
     userInfo: {},
     users: [],
     applications: [],
+    allApplications: {},
     applicationTypes: [],
     signDocs: [],
     roles: [],
-    loading: false
+    loading: false,
+    statistics: {},
+    staticValues: []
   },
   mutations: {
     updateUser(state, user) {
@@ -25,6 +28,9 @@ export default new Vuex.Store({
     },
     updateUsers(state, users) {
       state.users = users
+    },
+    updateStaticValues(state, staticValues) {
+      state.staticValues = staticValues
     },
     updateRoles(state, roles) {
       state.roles = roles
@@ -37,6 +43,12 @@ export default new Vuex.Store({
     },
     updateSignDocs(state, signDocs) {
       state.signDocs = signDocs
+    },
+    updateAllApplications(state, allApplications) {
+      state.allApplications = allApplications
+    },
+    updateStatistics(state, statistics) {
+      state.statistics = statistics
     },
     saveToken(state, data) {
       if (data) {
@@ -216,6 +228,69 @@ export default new Vuex.Store({
       return axios.get(`api/v1/user/campus-info/${id}`)
         .then(({data}) => {
           context.commit('updateUserInfo', data)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    getAllApplications(context, page=1) {
+      context.commit('setLoading', true)
+      return axios.get(`api/v1/applications/all?page=${page}`)
+        .then(({data}) => {
+          context.commit('updateAllApplications', data)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    getStatistics(context) {
+      context.commit('setLoading', true)
+      return axios.get(`api/v1/statistics`)
+        .then(({data}) => {
+          context.commit('updateStatistics', data)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    getStaticValues(context) {
+      context.commit('setLoading', true)
+      return axios.get(`api/v1/static-vars`)
+        .then(({data}) => {
+          context.commit('updateStaticValues', data)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    deleteStaticValue(context, id) {
+      context.commit('setLoading', true)
+      return axios.delete(`api/v1/static-vars/${id}`)
+        .then(({data}) => {
+          const values = context.state.staticValues.filter(value => value.id != id)
+          context.commit('updateStaticValues', values)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    editStaticValue(context, value) {
+      context.commit('setLoading', true)
+      return axios.put(`api/v1/static-vars/${value.id}`, value)
+        .then(() => {
+          const values = context.state.staticValues.map(staticValue => staticValue.id === value.id? value: staticValue)
+          context.commit('updateStaticValues', values)
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    createStaticValue(context, data) {
+      context.commit('setLoading', true)
+      return axios.post(`api/v1/static-vars`, data)
+        .then(() => {
+          const values = [...context.state.staticValues, data]
+          context.commit('updateStaticValues', values)
         })
         .finally(() => {
           context.commit('setLoading', false)

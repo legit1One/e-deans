@@ -13,6 +13,7 @@ Vue.use(ModalPlugin)
 const axios = require('axios');
 
 let axiosDefaults = require('axios/lib/defaults');
+// axiosDefaults.baseURL = 'http://127.0.0.1:8000/';
 axiosDefaults.baseURL = 'https://diploma-doc-service.herokuapp.com';
 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
 

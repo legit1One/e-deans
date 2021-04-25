@@ -7,6 +7,10 @@ import Applications from "../components/Applications";
 import CreateApplication from "../components/CreateApplication";
 import SignDocs from "../components/SignDocs";
 import CreateSignDoc from "../components/CreateSignDoc";
+import Profile from "../components/Profile";
+import AllApplications from "../components/AllApplications";
+import Dashboard from "../components/Dashboard";
+import StaticValues from "../components/StaticValues";
 
 Vue.use(VueRouter)
 
@@ -53,6 +57,26 @@ const routes = [
     path: '/create-sign-doc',
     name: 'createSignDoc',
     component: CreateSignDoc,
+  },
+  {
+    path: '/profile',
+    name: 'createSignDoc',
+    component: Profile,
+  },
+  {
+    path: '/all-applications',
+    name: 'allApplications',
+    component: AllApplications,
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard,
+  },
+  {
+    path: '/static-values',
+    name: 'staticValues',
+    component: StaticValues,
   },
 ]
 

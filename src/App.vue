@@ -4,7 +4,7 @@
             data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
       <Header v-if="$route.name!=='login'"></Header>
       <Sidebar v-if="$route.name!=='login'"></Sidebar>
-      <router-view></router-view>
+      <router-view v-if="user.id || $route.name==='login'"></router-view>
       <Loader v-if="loading"></Loader>
     </div>
   </div>
@@ -23,7 +23,7 @@
       Sidebar
     },
     computed: {
-      ...mapState(['loading'])
+      ...mapState(['loading', 'user'])
     }
   }
 </script>

@@ -49,6 +49,7 @@
       submitApplication() {
         this.requestApplication({application_type_id: this.applicationTypeId})
         .then(() => {
+          alert('Ваш запрос взят в обработку, ждите письмо на Вашу почту об изменении статуса заявки')
           this.$router.push('/applications')
         })
       }

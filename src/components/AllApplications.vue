@@ -1,15 +1,5 @@
 <template>
   <div class="page-wrapper pt-4">
-    <div class="page-breadcrumb bg-white">
-      <div class="row align-items-center">
-        <div class="w-100">
-          <div class="d-md-flex justify-content-end w-100 pr-3">
-            <router-link to="/create-application"
-                    class="btn btn-success d-md-block pull-right m-l-20 hidden-xs hidden-sm waves-effect waves-light">Создать заявление</router-link>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12">
@@ -26,7 +16,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(application, idx) in applications " :key="idx">
+                <tr v-for="(application, idx) in allApplications.data " :key="idx">
                   <td>{{++idx}}</td>
                   <td>{{getApplicationName(application)}}</td>
                   <td>{{application.created_at}}</td>
@@ -39,6 +29,14 @@
               </table>
             </div>
           </div>
+          <nav class="d-flex justify-content-center" v-if="allApplications.meta" aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item" :class="{active: allApplications.meta.current_page === page}"
+                  v-for="page in allApplications.meta.last_page">
+                <a class="page-link" href="javascript:void(0)" @click="getAllApplications(page)">{{page}}</a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
@@ -49,14 +47,14 @@
 
   export default {
     computed: {
-      ...mapState(['applications', 'applicationTypes'])
+      ...mapState(['allApplications', 'applicationTypes'])
     },
     mounted() {
       this.getApplicationTypes()
-      this.getApplications()
+      this.getAllApplications()
     },
     methods: {
-      ...mapActions(['getApplications', 'getApplicationTypes']),
+      ...mapActions(['getAllApplications', 'getApplicationTypes']),
       getApplicationName(application) {
         return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).description) || ''
       }

@@ -56,6 +56,10 @@
         <div class="text-right">{{userInfo.department.cafedranameru}}</div>
       </div>
       <div class="d-flex justify-content-between mt-2">
+        <div class="font-weight-bold mr-2">Специальность:</div>
+        <div class="text-right">{{userInfo.studentCard.specialization.name}}</div>
+      </div>
+      <div class="d-flex justify-content-between mt-2">
         <div class="font-weight-bold mr-2">Курс:</div>
         <div class="text-right">{{userInfo.studentCard.course}}</div>
       </div>
@@ -104,6 +108,7 @@
       },
       showModal(userId) {
         this.getUserCampusInfo(userId).then(() => {
+          console.log(this.userInfo)
           this.$bvModal.show('userModal')
         })
       }
