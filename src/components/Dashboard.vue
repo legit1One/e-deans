@@ -4,14 +4,14 @@
       <div class="page-breadcrumb bg-white">
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <h4 class="page-title text-uppercase font-medium font-14">Профиль</h4>
+            <h4 class="page-title text-uppercase font-medium font-14">Статистика</h4>
           </div>
         </div>
       </div>
       <div class="container-fluid">
         <div class="row justify-content-center">
-          <div class="col-12 d-flex">
-            <div class="card">
+          <div class="col-12 d-flex flex-wrap">
+            <div class="card col-md-5 col-lg-4 col-12">
               <div class="card-body">
                 <DoughnutChart :data="[
                     statistics.accepted_applications,
@@ -21,7 +21,7 @@
                 ></DoughnutChart>
               </div>
             </div>
-            <div class="card">
+            <div class="card col-md-5 col-lg-4 col-12">
               <div class="card-body">
                 <DoughnutChart :data="[
                     statistics.all_applications - statistics.processed_applications,
@@ -31,27 +31,52 @@
                 ></DoughnutChart>
               </div>
             </div>
-            <div class="card w-50 d-flex justify-content-center">
-              <div class="card-body w-75">
-                <div class="d-flex justify-content-between">
-                  <div><b>Среднее время обработки заявок:</b></div>
-                  <div>1 час</div>
+            <div class="d-flex justify-content-center ml-lg-2">
+              <div>
+                <div class="card card-body flex-row d-flex align-items-center">
+                  <div>
+                    <i class="fas fa-2x fa-wrench text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="h4">1 час</div>
+                    <div><b>Среднее время обработки заявок:</b></div>
+                  </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <div><b>Общее количество заявок:</b></div>
-                  <div>{{statistics.all_applications}} шт.</div>
+                <div class="card card-body flex-row d-flex align-items-center">
+                  <div>
+                    <i class="fas fa-2x fa-signal text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="h4">{{statistics.all_applications}} шт.</div>
+                    <div><b>Общее количество заявок:</b></div>
+                  </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <div><b>Общее количество обработанных заявок:</b></div>
-                  <div>{{statistics.processed_applications}} шт.</div>
+                <div class="card card-body flex-row d-flex align-items-center">
+                  <div>
+                    <i class="fas fa-2x fa-pencil-alt text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="h4">{{statistics.processed_applications}} шт.</div>
+                    <div><b>Общее количество обработанных заявок:</b></div>
+                  </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <div><b>Общее количество подтвержденных заявок:</b></div>
-                  <div>{{statistics.accepted_applications}} шт.</div>
+                <div class="card card-body flex-row d-flex align-items-center">
+                  <div>
+                    <i class="fas fa-2x fa-chart-line text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="h4">{{statistics.accepted_applications}} шт.</div>
+                    <div><b>Общее количество подтвержденных заявок:</b></div>
+                  </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                  <div><b>Общее количество отказанных заявок:</b></div>
-                  <div>{{statistics.rejected_applications}} шт.</div>
+                <div class="card card-body flex-row d-flex align-items-center">
+                  <div>
+                    <i class="fas fa-2x fa-chart-bar text-danger"></i>
+                  </div>
+                  <div class="ml-3">
+                    <div class="h4">{{statistics.rejected_applications}} шт.</div>
+                    <div><b>Общее количество отказанных заявок:</b></div>
+                  </div>
                 </div>
               </div>
             </div>

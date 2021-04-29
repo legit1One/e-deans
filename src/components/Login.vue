@@ -48,12 +48,12 @@
       ...mapActions(['login', 'studentLogin']),
       signIn() {
         this.login(this.user).then(() => {
-          window.location.href = '/sign-docs'
+          window.location.href = '/dashboard'
         })
       },
       studentSignIn() {
         this.studentLogin(this.user).then(() => {
-          window.location.href = '/applications'
+          window.location.href = '/dashboard'
         })
       }
     }

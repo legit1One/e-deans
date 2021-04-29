@@ -23,7 +23,7 @@
         <ul class="navbar-nav ml-auto d-flex align-items-center">
           <li>
             <a class="profile-pic" href="#">
-              <span class="text-white font-medium">{{user.name}}</span></a>
+              <span class="text-white font-medium" v-if="user">{{user.name}}</span></a>
           </li>
         </ul>
       </div>
