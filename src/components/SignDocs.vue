@@ -24,8 +24,8 @@
                           @click="chosenDoc = signDoc;showModal(signDoc.application.applicant.id)">
                     {{signDoc.application.applicant.name}} </a>
                   </td>
-                  <td><a href="javascript:void(0)" @click="signDocument (signDoc, true)">Подписать</a></td>
-                  <td><a href="javascript:void(0)" @click="signDocument(signDoc, false)">Отказать</a></td>
+                  <td><a href="javascript:void(0)" @click="showPasswordModal(signDoc, true)">Подписать</a></td>
+                  <td><a href="javascript:void(0)" @click="showPasswordModal(signDoc, false)">Отказать</a></td>
                 </tr>
                 </tbody>
               </table>
@@ -76,6 +76,22 @@
         <div class="text-right">{{userInfo.phone}}</div>
       </div>
     </b-modal>
+    <b-modal id="passwordModal" @hide="signingDoc=null;password=''" @ok.prevent="checkPassword" ok-only title="Подтвердите действие">
+      <div class="card border-0">
+        <div class="card-body py-0">
+          <form class="form-horizontal form-material" @submit.prevent="checkPassword">
+            <div class="form-group mb-4">
+              <label class="col-md-12 p-0">Введите пароль для подтверждения</label>
+              <div class="col-md-12 border-bottom p-0">
+                <input type="password" placeholder="Введите пароль" required v-model="password"
+                        class="form-control p-0 border-0">
+              </div>
+              <p v-if="isPasswordWrong" class="text-danger mt-2">Введен неверный пароль</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 <script>
@@ -83,24 +99,27 @@
 
   export default {
     data: () => ({
-      chosenDoc: null
+      chosenDoc: null,
+      password: '',
+      isPasswordWrong: false,
+      signingDoc: null
     }),
     computed: {
-      ...mapState(['signDocs', 'applicationTypes', 'userInfo'])
+      ...mapState(['signDocs', 'applicationTypes', 'userInfo', 'user'])
     },
     mounted() {
       this.getSignDocs()
       this.getApplicationTypes()
     },
     methods: {
-      ...mapActions(['getSignDocs', 'getApplicationTypes', 'signApplication', 'getUserCampusInfo']),
+      ...mapActions(['getSignDocs', 'getApplicationTypes', 'signApplication', 'getUserCampusInfo', 'verifySigning']),
       getApplicationName(application) {
         return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).description) || ''
       },
-      signDocument(doc, signed) {
+      signDocument(doc) {
         const data = {
           "sign_doc_id": doc.id,
-          signed
+          signed: doc.signed
         }
         this.signApplication(data).then(() => {
           window.location.reload()
@@ -110,6 +129,22 @@
         this.getUserCampusInfo(userId).then(() => {
           console.log(this.userInfo)
           this.$bvModal.show('userModal')
+        })
+      },
+      showPasswordModal(doc, flag) {
+        this.signingDoc = {...doc, signed: flag}
+        this.$bvModal.show('passwordModal')
+      },
+      checkPassword() {
+        this.verifySigning({
+          username: this.user.username,
+          password: this.password
+        }).then(() => {
+          this.isPasswordWrong = false
+          this.signDocument(this.signingDoc)
+        }).catch(() => {
+          alert(123)
+          this.isPasswordWrong = true
         })
       }
     }

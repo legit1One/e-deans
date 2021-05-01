@@ -118,8 +118,13 @@ export default new Vuex.Store({
         .then(({data}) => {
           context.commit('updateUser', data)
         })
-        .catch(() => {
+        .catch((error ) => {
           context.commit('updateUser', null)
+          if(error.response.status === 401) {
+            localStorage.removeItem('access_token')
+            window.location.href = '/login'
+          }
+
         })
         .finally(() => {
           context.commit('setLoading', false)
@@ -294,6 +299,14 @@ export default new Vuex.Store({
         })
         .finally(() => {
           context.commit('setLoading', false)
+        })
+    },
+    verifySigning(context, data) {
+      context.commit('setLoading', true)
+      return axios.post(`api/v1/verify-signing`, data)
+        .then(response => {
+          context.commit('setLoading', false)
+          return response
         })
     }
   },

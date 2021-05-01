@@ -70,7 +70,6 @@
           colors.push("rgb(" + r + "," + g + "," + b + ")");
         }
 
-        console.log(colors)
         return colors
       }
     }
