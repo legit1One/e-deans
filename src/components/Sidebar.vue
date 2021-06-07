@@ -39,6 +39,13 @@
             </router-link>
           </li>
 
+          <li class="sidebar-item" v-if="isAdmin">
+            <router-link class="sidebar-link waves-effect waves-dark sidebar-link"
+                    to="/application-types" aria-expanded="false"><i class="fa fa-table"
+                    aria-hidden="true"></i><span class="hide-menu">Виды заявлений</span>
+            </router-link>
+          </li>
+
           <li class="sidebar-item" v-if="!isStudent">
             <router-link class="sidebar-link waves-effect waves-dark sidebar-link"
                     to="/sign-docs" aria-expanded="false"><i class="fa fa-table"

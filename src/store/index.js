@@ -13,6 +13,7 @@ export default new Vuex.Store({
     applications: [],
     allApplications: {},
     applicationTypes: [],
+    applicationType: {},
     signDocs: [],
     roles: [],
     loading: false,
@@ -40,6 +41,9 @@ export default new Vuex.Store({
     },
     updateApplicationTypes(state, applicationTypes) {
       state.applicationTypes = applicationTypes
+    },
+    updateApplicationType(state, applicationType) {
+      state.applicationType = applicationType
     },
     updateSignDocs(state, signDocs) {
       state.signDocs = signDocs
@@ -213,6 +217,28 @@ export default new Vuex.Store({
       return axios.get(`api/v1/application-types`)
         .then(({data}) => {
           context.commit('updateApplicationTypes', data)
+          return data
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    getApplicationType(context, id) {
+      context.commit('setLoading', true)
+      return axios.get(`api/v1/application-types/${id}`)
+        .then(({data}) => {
+          context.commit('updateApplicationType', data)
+          return data
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
+        })
+    },
+    updateApplicationType(context, data) {
+      context.commit('setLoading', true)
+      return axios.put(`api/v1/application-types/${data.id}`, data)
+        .then(({data}) => {
+          context.commit('updateApplicationTypes', data)
         })
         .finally(() => {
           context.commit('setLoading', false)
@@ -304,9 +330,11 @@ export default new Vuex.Store({
     verifySigning(context, data) {
       context.commit('setLoading', true)
       return axios.post(`api/v1/verify-signing`, data)
-        .then(response => {
-          context.commit('setLoading', false)
+        .then(async response => {
           return response
+        })
+        .finally(() => {
+          context.commit('setLoading', false)
         })
     }
   },

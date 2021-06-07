@@ -76,12 +76,12 @@
         <div class="text-right">{{userInfo.phone}}</div>
       </div>
     </b-modal>
-    <b-modal id="passwordModal" @hide="signingDoc=null;password=''" @ok.prevent="checkPassword" ok-only title="Подтвердите действие">
+    <b-modal id="passwordModal" @hide="password=''" @ok.prevent="checkPassword" ok-only title="Подтвердите действие">
       <div class="card border-0">
         <div class="card-body py-0">
           <form class="form-horizontal form-material" @submit.prevent="checkPassword">
             <div class="form-group mb-4">
-              <label class="col-md-12 p-0">Введите пароль для подтверждения</label>
+              <label class="col-md-12 p-0">Введите пароль от учетной записи</label>
               <div class="col-md-12 border-bottom p-0">
                 <input type="password" placeholder="Введите пароль" required v-model="password"
                         class="form-control p-0 border-0">
@@ -143,7 +143,6 @@
           this.isPasswordWrong = false
           this.signDocument(this.signingDoc)
         }).catch(() => {
-          alert(123)
           this.isPasswordWrong = true
         })
       }

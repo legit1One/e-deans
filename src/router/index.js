@@ -11,6 +11,8 @@ import Profile from "../components/Profile";
 import AllApplications from "../components/AllApplications";
 import Dashboard from "../components/Dashboard";
 import StaticValues from "../components/StaticValues";
+import ApplicationTypes from "../components/ApplicationTypes";
+import SignerOrders from "../components/SignerOrders";
 
 Vue.use(VueRouter)
 
@@ -77,6 +79,16 @@ const routes = [
     path: '/static-values',
     name: 'staticValues',
     component: StaticValues,
+  },
+  {
+    path: '/application-types',
+    name: 'applicationTypes',
+    component: ApplicationTypes,
+  },
+  {
+    path: '/signer-orders/:id',
+    name: 'signerOrders',
+    component: SignerOrders,
   },
 ]
 
