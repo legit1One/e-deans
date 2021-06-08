@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="white-box">
-            <h3 class="box-title">Список заявок</h3>
+            <h3 class="box-title">Список полей</h3>
             <div class="table-responsive">
               <table class="table">
                 <thead>
@@ -36,7 +36,7 @@
                   </td>
                   <td>
                     <i class="fas fa-trash-alt text-danger cursor-pointer"
-                            @click="deleteStaticValue(staticValue.id)"></i>
+                            @click="askDelete(staticValue.id)"></i>
                   </td>
                 </tr>
                 </tbody>
@@ -99,6 +99,11 @@
       createNewStaticValue() {
         this.createStaticValue(this.chosenValue)
         this.isNew = false
+      },
+      askDelete(id) {
+        if(confirm('Удаление поля может привести к ошибкам при генерации документа. Вы уверены, что хотите его удалить?')) {
+          this.deleteStaticValue(id)
+        }
       }
     }
   }

@@ -21,17 +21,17 @@
                         v-model="allSigners"
                         tag="tbody">
                   <template v-for="(signer, idx) in allSigners">
-                  <transition-group type="transition" :name="!drag ? 'flip-list' : null" tag="tr" :key="signer.id">
+                    <transition-group type="transition" :name="!drag ? 'flip-list' : null" tag="tr" :key="signer.id">
                       <td :key="`id${signer.id}`">{{idx + 1}}</td>
                       <td :key="`name${signer.id}`">{{signer.name}}</td>
                       <td :key="`switch${signer.id}`">
                         <div class="custom-control custom-switch ml-4">
                           <input type="checkbox" class="custom-control-input" :id="`signer${idx}`"
                                   :checked="signer.isSigner">
-                          <label class="custom-control-label" :for="`signer${idx}`" @click="signer.isSigner = !signer.isSigner"></label>
+                          <label class="custom-control-label" :for="`signer${idx}`" @click.prevent.stop="toggleSigner(signer, idx)"></label>
                         </div>
                       </td>
-                  </transition-group>
+                    </transition-group>
                   </template>
                 </draggable>
               </table>
@@ -113,10 +113,17 @@
         })
 
         this.allSigners = [...result, ...this.allSigners]
-
-        // this.allSigners.sort((x, y) => {
-        //   return x.isSigner ? -1 : 1;
-        // });
+      },
+      isDisabled(signer) {
+        return this.allSigners.filter(a => a.isSigner).length === 1 && signer.isSigner
+      },
+      toggleSigner(signer, idx) {
+        if(this.isDisabled(signer)) {
+          alert('Должен быть как минимум 1 подписывающий')
+          return
+        }
+        this.$set(signer, 'isSigner', !signer.isSigner)
+        this.$set(this.allSigners, idx, signer)
       }
     }
   }
