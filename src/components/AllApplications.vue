@@ -21,8 +21,10 @@
                   <td>{{getApplicationName(application)}}</td>
                   <td>{{application.created_at}}</td>
                   <td>
-                    <a v-if="application.uri" :href="application.uri">{{application.uri}}</a>
-                    <span v-else>В обработке</span>
+                    <a v-if="application.uri && isValidURL(application.uri)"
+                            :href="application.uri">{{application.uri}}</a>
+                    <span class="text-success" v-else-if="!application.uri">В обработке</span>
+                    <span class="text-danger" v-else>Отказано</span>
                   </td>
                 </tr>
                 </tbody>
@@ -32,7 +34,7 @@
           <nav class="d-flex justify-content-center" v-if="allApplications.meta" aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item" :class="{active: allApplications.meta.current_page === page}"
-                  v-for="page in allApplications.meta.last_page">
+                      v-for="page in allApplications.meta.last_page">
                 <a class="page-link" href="javascript:void(0)" @click="getAllApplications(page)">{{page}}</a>
               </li>
             </ul>
@@ -57,6 +59,15 @@
       ...mapActions(['getAllApplications', 'getApplicationTypes']),
       getApplicationName(application) {
         return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).description) || ''
+      },
+      isValidURL(str) {
+        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+          '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+          '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(str);
       }
     }
   }

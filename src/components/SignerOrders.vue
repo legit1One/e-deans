@@ -21,7 +21,7 @@
                         v-model="allSigners"
                         tag="tbody">
                   <template v-for="(signer, idx) in allSigners">
-                  <transition-group type="transition" :name="!drag ? 'flip-list' : null" tag="tr">
+                  <transition-group type="transition" :name="!drag ? 'flip-list' : null" tag="tr" :key="signer.id">
                       <td :key="`id${signer.id}`">{{idx + 1}}</td>
                       <td :key="`name${signer.id}`">{{signer.name}}</td>
                       <td :key="`switch${signer.id}`">
@@ -79,7 +79,8 @@
           role.isSigner = this.applicationType.signer_orders.includes(role.id)
           return role
         })
-        this.sortSigners()
+        this.allSigners = this.allSigners.filter(signer => signer.name !== 'STUDENT')
+        this.sortSigners(this.applicationType.signer_orders)
       })
     },
     methods: {
@@ -94,12 +95,28 @@
         let applicationType = {...this.applicationType}
         applicationType.signer_orders = signers.map(signer => signer.id)
         this.updateApplicationType(applicationType)
-        this.sortSigners()
+        this.sortSigners(applicationType.signer_orders)
       },
-      sortSigners() {
-        this.allSigners.sort((x, y) => {
-          return x.isSigner ? -1 : 1;
-        });
+      sortSigners(orders) {
+        let result = []
+
+        orders.forEach((id) => {
+          let found = false;
+          this.allSigners = this.allSigners.filter(function(item) {
+            if(!found && item.id === id) {
+              result.push(item);
+              found = true;
+              return false;
+            } else
+              return true;
+          })
+        })
+
+        this.allSigners = [...result, ...this.allSigners]
+
+        // this.allSigners.sort((x, y) => {
+        //   return x.isSigner ? -1 : 1;
+        // });
       }
     }
   }

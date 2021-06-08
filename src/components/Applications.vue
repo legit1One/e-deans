@@ -31,8 +31,10 @@
                   <td>{{getApplicationName(application)}}</td>
                   <td>{{application.created_at}}</td>
                   <td>
-                    <a v-if="application.uri" :href="application.uri">{{application.uri}}</a>
-                    <span v-else>В обработке</span>
+                    <a v-if="application.uri && isValidURL(application.uri)"
+                            :href="application.uri">{{application.uri}}</a>
+                    <span class="text-success" v-else-if="!application.uri">В обработке</span>
+                    <span class="text-danger" v-else>Отказано</span>
                   </td>
                 </tr>
                 </tbody>
@@ -59,6 +61,15 @@
       ...mapActions(['getApplications', 'getApplicationTypes']),
       getApplicationName(application) {
         return (this.applicationTypes.length && this.applicationTypes.find(type => type.id === application.application_type_id).description) || ''
+      },
+      isValidURL(str) {
+        const pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+          '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+          '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+          '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(str);
       }
     }
   }
