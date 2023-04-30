@@ -56,7 +56,7 @@
     computed: {
       ...mapState(['users', 'roles'])
     },
-    mounted() {
+    created() {
       this.$store.dispatch('getUsers')
       this.getRoles()
     },

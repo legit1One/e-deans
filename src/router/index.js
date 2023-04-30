@@ -1,18 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import UserList from "../components/UserList";
-import CreateUser from "../components/CreateUser";
-import Login from "../components/Login"
-import Applications from "../components/Applications";
-import CreateApplication from "../components/CreateApplication";
-import SignDocs from "../components/SignDocs";
-import CreateSignDoc from "../components/CreateSignDoc";
-import Profile from "../components/Profile";
-import AllApplications from "../components/AllApplications";
-import Dashboard from "../components/Dashboard";
-import StaticValues from "../components/StaticValues";
-import ApplicationTypes from "../components/ApplicationTypes";
-import SignerOrders from "../components/SignerOrders";
+const UserList = () => import("../components/UserList");
+const CreateUser = () => import("../components/CreateUser");
+const Login = () => import("../components/Login")
+const Applications = () => import("../components/Applications");
+const CreateApplication = () => import("../components/CreateApplication");
+const SignDocs = () => import("../components/SignDocs");
+const CreateSignDoc = () => import("../components/CreateSignDoc");
+const AllApplications = () => import("../components/AllApplications");
+const Dashboard = () => import("../components/Dashboard");
+const StaticValues = () => import("../components/StaticValues");
+const ApplicationTypes = () => import("../components/ApplicationTypes");
+const SignerOrders = () => import("../components/SignerOrders");
 
 Vue.use(VueRouter)
 
@@ -60,11 +59,11 @@ const routes = [
     name: 'createSignDoc',
     component: CreateSignDoc,
   },
-  {
-    path: '/profile',
-    name: 'createSignDoc',
-    component: Profile,
-  },
+  // {
+  //   path: '/profile',
+  //   name: 'profile',
+  //   component: Profile,
+  // },
   {
     path: '/all-applications',
     name: 'allApplications',
@@ -98,10 +97,13 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'login' && !localStorage.getItem('access_token')) next({ name: 'login' })
-  else if (to.path === '/') next({ name: 'dashboard' })
-  else next()
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.name !== 'login' && !localStorage.getItem('access_token')) {
+//     alert(123)
+//     next({name: 'login'})
+//   }
+//   else if (to.path === '/') next({ name: 'dashboard' })
+//   else next()
+// })
 
 export default router

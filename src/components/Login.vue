@@ -25,7 +25,7 @@
                 </div>
 
                 <button @click="signIn" class="btn text-white btn-block btn-primary">Войти</button>
-                <button @click="studentSignIn" class="btn text-white btn-block btn-primary">Войти как студент</button>
+<!--                <button @click="studentSignIn" class="btn text-white btn-block btn-primary">Войти как студент</button>-->
               </div>
             </div>
           </div>
@@ -51,11 +51,6 @@
           window.location.href = '/dashboard'
         })
       },
-      studentSignIn() {
-        this.studentLogin(this.user).then(() => {
-          window.location.href = '/dashboard'
-        })
-      }
     }
   }
 </script>

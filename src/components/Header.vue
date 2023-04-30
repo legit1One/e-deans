@@ -4,7 +4,7 @@
       <div class="navbar-header" data-logobg="skin6">
         <router-link class="navbar-brand" to="/dashboard">
           <b class="logo-icon">
-            <img src="@/assets/images/logo-icon.png" alt="homepage" />
+            <img src="@/assets/images/logo-icon.png" alt="homepage" width="33" height="31"/>
           </b>
           <span class="logo-text">
             E-DEANS

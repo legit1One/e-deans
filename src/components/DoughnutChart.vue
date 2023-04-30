@@ -24,37 +24,35 @@
       ...mapState(['statistics'])
     },
     mounted() {
-      this.getStatistics().then(() => {
-        var ctx = this.$refs.chart.getContext('2d');
+      var ctx = this.$refs.chart.getContext('2d');
 
-        const chart = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-            labels: this.labels,
-            datasets: [{
-              backgroundColor: this.getRandomColors(),
-              data: this.data
-            }]
+      const chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: this.labels,
+          datasets: [{
+            backgroundColor: this.getRandomColors(),
+            data: this.data
+          }]
+        },
+        options: {
+          legend: {
+            display: false,
           },
-          options: {
-            legend: {
-              display: false,
-            },
-            tooltips: {
-              enabled: true,
-              mode: 'index',
-              callbacks: {
-                label: function (tooltipItems, data) {
-                  var i, label = [], l = data.datasets.length;
-                  for (i = 0; i < l; i += 1) {
-                    label[i] = data.datasets[i].label + ': ' + data.datasets[i].data[tooltipItems.index] + '%';
-                  }
-                  return label;
+          tooltips: {
+            enabled: true,
+            mode: 'index',
+            callbacks: {
+              label: function (tooltipItems, data) {
+                var i, label = [], l = data.datasets.length;
+                for (i = 0; i < l; i += 1) {
+                  label[i] = data.datasets[i].label + ': ' + data.datasets[i].data[tooltipItems.index] + '%';
                 }
+                return label;
               }
             }
           }
-        })
+        }
       })
     },
     methods: {

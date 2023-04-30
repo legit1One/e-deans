@@ -30,6 +30,4 @@
 
 <style lang="scss">
   @import "styles/style";
-  @import './assets/icons/font-awesome/css/fontawesome-all.min.css';
-  @import './assets/icons/themify-icons/themify-icons.css';
 </style>

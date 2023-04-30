@@ -118,6 +118,11 @@ export default new Vuex.Store({
     },
     getCurrentUser(context) {
       context.commit('setLoading', true)
+      // if(!localStorage.getItem('access_token')) {
+      //   window.location.href = '/login'
+      //   return
+      // }
+
       return axios.get(`api/v1/user-context`)
         .then(({data}) => {
           context.commit('updateUser', data)
@@ -126,7 +131,7 @@ export default new Vuex.Store({
           context.commit('updateUser', null)
           if(error.response.status === 401) {
             localStorage.removeItem('access_token')
-            window.location.href = '/login'
+            // window.location.href = '/login'
           }
 
         })

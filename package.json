@@ -3,18 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service build",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "start": "vue-cli-service build"
   },
   "dependencies": {
     "axios": "^0.20.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "chart.js": "^3.1.1",
+    "compression": "^1.7.4",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
+    "register-service-worker": "^1.7.2",
     "serve-static": "^1.14.1",
     "vue": "^2.6.12",
     "vue-router": "^3.2.0",
@@ -22,13 +24,21 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
     "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-pwa": "^4.5.19",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "compression-webpack-plugin": "^6.1.1",
     "node-sass": "^4.12.0",
+    "postcss": "^7.0.35",
+    "purgecss": "^5.0.0",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "string-replace-loader": "^2.3.0",
+    "vue-cli-plugin-compression": "~1.2.0",
+    "vue-template-compiler": "^2.6.11",
+    "zopfli-webpack-plugin": "^0.1.0"
   },
   "browserslist": [
     "> 1%",
