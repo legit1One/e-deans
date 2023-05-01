@@ -22,6 +22,9 @@
       Header,
       Sidebar
     },
+    created() {
+      document.addEventListener('swUpdated', console.log, { once: true })
+    },
     computed: {
       ...mapState(['loading', 'user'])
     }
